@@ -1,0 +1,5 @@
+pillow>10.0
+pytesseract>=0.3.10
+keyboard>=0.13
+numpy>=1.0
+pyperclip>=1.8.0
