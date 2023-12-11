@@ -141,7 +141,6 @@ class RiaTable:
         numeric_button.pack()
         numeric_button.place(x=self.region[0], y=self.region[1] - 60, width=60, height=30)
         def numeric_mode(event):
-            print("Numeric mode")
             allowed_chars.delete(0, tk.END)
             allowed_chars.insert(0, "0123456789 ")
             allowed_chars_change(None)
@@ -223,7 +222,6 @@ class RiaTable:
         def copy(event):
             self.update_image_data()
             self.root.destroy()
-            print("-" * 20)
             vlines = [self.region[0]] + sorted(self.vlines) + [self.region[2]]
             hlines = [self.region[1]] + sorted(self.hlines) + [self.region[3]]
 
@@ -234,24 +232,20 @@ class RiaTable:
                     if text.strip() == '':
                         continue
                     if test_region(self.image_data["left"][i], self.image_data["top"][i], cell_region):
-                        print(text)
-                        print(self.image_data["left"][i], self.image_data["top"][i])
                         found.append(text)
                 return " ".join(found)
 
             # Split the image by hlines and vlines
             # Generate empty 2d array
             table = [[('') for y in range(len(vlines) - 1)] for z in range(len(hlines) - 1)]
-            print(table)
             for y in range(len(hlines) - 1):
                 for x in range(len(vlines) - 1):
                     table[y][x] = extract_cell(x, y)
-            print(table)
             table_str = '\n'.join(['\t'.join(row) for row in table])
-            print(table_str)
 
             # Table to clipboard
             pyperclip.copy(table_str)
+            print(f"OCR result (copied to clipboad):\n{table_str}")
         self.root.bind('<Control-C>', copy)
 
         update_screen()
@@ -261,9 +255,11 @@ def main():
 
     while True:
         # Bind the hotkey to the function
-        keyboard.add_hotkey('ctrl + shift + t', RiaTable)
+        shortcut = "ctrl + shift + t"
+        keyboard.add_hotkey(shortcut, RiaTable)
 
         # Wait indefinitely for the hotkey to be pressed
+        print(f"Waiting for {shortcut}...")
         keyboard.wait()
 
 
