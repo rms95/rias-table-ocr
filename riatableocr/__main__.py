@@ -12,7 +12,7 @@ def ocr(image: Image) -> str:
     return pytesseract.image_to_string(image)
 
 
-def auto_detect_lines(image: Image, region: list[int]) -> tuple[list[int], list[int]]:
+def auto_detect_lines(image: Image, region: list):
     hlines, vlines = [], []
     image_gray = image.convert('L')
     empty_since = 0
