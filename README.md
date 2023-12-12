@@ -12,7 +12,7 @@
 3. Select the region of the table.
 4. Add/remove borders where required
 5. (Optional) Limit allowed characters by click numeric
-6. Copy the table using `ctrl + c`
+6. Copy the table using `ctrl + shift + c`
 
 ## Development
 1. Clone this repo: `git clone https://github.com/rms95/rias-table-ocr.git`
