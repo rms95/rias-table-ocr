@@ -32,6 +32,9 @@ jobs:
         path: dist/
 
   release:
+    permissions:
+      contents: write
+      pull-requests: read
     needs: build
     runs-on: windows-latest
     steps:
