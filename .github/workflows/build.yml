@@ -23,7 +23,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Build Executable
-      run: pyinstaller --onefile riatableocr/__main__.py -n ria-table-ocr
+      run: pyinstaller --onefile riatableocr/__main__.py --icon=logo.ico -n ria-table-ocr
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
