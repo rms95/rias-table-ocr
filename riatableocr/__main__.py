@@ -1,8 +1,17 @@
+import os
 import tkinter as tk
 import keyboard
 import pyperclip
 import pytesseract
 from PIL import Image, ImageGrab
+from pathlib import Path
+
+
+# Set Tesseract path
+tesseract_exe = Path(os.environ['PROGRAMFILES']) / "Tesseract-OCR/tesseract.exe"
+if tesseract_exe.is_file():
+    pytesseract.pytesseract.tesseract_cmd = str(tesseract_exe)
+    print("Tesseract path:", pytesseract.pytesseract.tesseract_cmd)
 
 
 def ocr(image: Image) -> str:
@@ -21,7 +30,7 @@ def auto_detect_lines(image: Image, region: list):
         pixeldata = [image_gray.getpixel((pixelcol, pixelrow)) for pixelcol in range(image_gray.width)]
         if abs(max(pixeldata) - min(pixeldata)) < 40:
             empty_since += 1
-        elif empty_since > 15:
+        elif empty_since > 5:
             hlines += [pixelrow - int(empty_since / 2) + region[1]]
             empty_since = 0
         else:
@@ -31,7 +40,7 @@ def auto_detect_lines(image: Image, region: list):
         pixeldata = [image_gray.getpixel((pixelcol, pixelrow)) for pixelrow in range(image_gray.height)]
         if abs(max(pixeldata) - min(pixeldata)) < 40:
             empty_since += 1
-        elif empty_since > 30:
+        elif empty_since > 25:
             vlines += [pixelcol - int(empty_since / 2) + region[0]]
             empty_since = 0
         else:
